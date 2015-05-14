@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MVCRiceStore.Models.Client>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New","Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayName("Client Name")</th>
+        <th>@Html.DisplayName("Note")</th>
+    </tr>
+    
+@foreach (var client in Model)
+{
+    <tr>
+        <td>@Html.DisplayFor(modelClient => client.Name)</td>
+        <td>@Html.DisplayFor(modelClient => client.Note) </td>
+        <td>@Html.ActionLink("Edit", "Edit", new { id=client.Id})</td>
+        <td>@Html.ActionLink("Delete", "Delete", new {id=client.Id})</td>
+    </tr> 
+} 
+
+</table>

@@ -1,0 +1,30 @@
+﻿@model MVCRiceStore.Models.Client
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("Name")
+            <div class="col-md-10">
+                @Html.EditorFor(model=> model.Name)
+                @Html.ValidationMessageFor(model=> model.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Note")
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note)                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default"/>
+        </div>
+    </div>
+}
