@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MVCRiceStore.Models.Store>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Name)</th>
+        <th>@Html.DisplayNameFor(model => model.Address)</th>
+        <th>@Html.DisplayNameFor(model => model.Suburb)</th>
+        <th>@Html.DisplayNameFor(model => model.Postcode)</th>
+    </tr>
+@foreach(var store in Model)
+{
+    <tr>
+        <td>@Html.DisplayFor(modelStore => store.Name)</td>
+        <td>@Html.DisplayFor(modelStore => store.Address)</td>
+        <td>@Html.DisplayFor(modelStore => store.Suburb)</td>
+        <td>@Html.DisplayFor(modelStore => store.Postcode)</td>
+    </tr>
+}
+</table>
+
