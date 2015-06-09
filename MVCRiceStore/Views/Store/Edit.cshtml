@@ -1,4 +1,5 @@
-﻿@model MVCRiceStore.Models.Store
+﻿@using MVCRiceStore.Models;
+@model MVCRiceStore.Models.Store
 
 @{
     ViewBag.Title = "Edit";
@@ -36,6 +37,33 @@
             <div class="col-md-9">@Html.EditorFor(model=>model.Postcode)</div>
         </div>
 
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("Available Rice")</div>
+            @{
+                var listItems = new List<SelectListItem>();
+                var riceList = ViewBag.RiceList;
+
+                var selectedRices = new List<Rice>();
+
+                if (Model.rices != null) {
+                    selectedRices = Model.rices.ToList();
+                }
+
+                if (riceList != null) {
+                    foreach (Rice r in riceList) {
+                        if (selectedRices.IndexOf(r) >= 0)
+                        {
+                            listItems.Add(new SelectListItem { Text = r.Type, Value = r.Id.ToString(), Selected = true });
+                        }
+                        else {
+                            listItems.Add(new SelectListItem { Text = r.Type, Value = r.Id.ToString()});
+                        }
+                    }
+                }                
+            }
+            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>            
+        </div>
+        
 
         <div class="form-group">
             <input type="submit" value="Save"/>

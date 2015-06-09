@@ -37,18 +37,20 @@ namespace MVCRiceStore.Controllers
                           Postcode = svm.Postcode
                       };
 
-            foreach (string riceId in svm.rices)
-            {
-                Rice r = db.rices.Find(Convert.ToInt16(riceId));
-
-                if (r != null)
+            if (svm.rices != null) {
+                foreach (string riceId in svm.rices)
                 {
-                    if (s.rices == null)
-                    {
-                        s.rices = new List<Rice>();
-                    }
+                    Rice r = db.rices.Find(Convert.ToInt16(riceId));
 
-                    s.rices.Add(r);
+                    if (r != null)
+                    {
+                        if (s.rices == null)
+                        {
+                            s.rices = new List<Rice>();
+                        }
+
+                        s.rices.Add(r);
+                    }
                 }
             }
 
@@ -68,13 +70,14 @@ namespace MVCRiceStore.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Store store = db.stores.Find(id);
+            Store store = db.stores.Include(s=>s.rices).SingleOrDefault(s=>s.Id==id);
 
             if (store == null)
             {
                 return HttpNotFound();
             }
 
+            ViewBag.RiceList = db.rices.ToList();
             return View(store);
         }
 
