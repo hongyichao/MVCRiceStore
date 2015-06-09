@@ -1,0 +1,46 @@
+﻿@model MVCRiceStore.Models.Store
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("Name")</div>
+            <div class="col-md-9">@Html.EditorFor(mode=>Model.Name)</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("Address")</div>
+            <div class="col-md-9">@Html.EditorFor(model=>model.Address)</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("Suburb")</div>
+            <div class="col-md-9">@Html.EditorFor(model => model.Suburb)</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("State")</div>
+            <div class="col-md-9">@Html.EditorFor(model => model.State)</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("Postcode")</div>
+            <div class="col-md-9">@Html.EditorFor(model=>model.Postcode)</div>
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Save"/>
+        </div>
+
+    </div>
+    
+}

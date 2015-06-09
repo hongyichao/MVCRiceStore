@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVCRiceStore.Models;
@@ -30,9 +32,70 @@ namespace MVCRiceStore.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            return View(s);
+        }
 
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Store store = db.stores.Find(id);
+
+            if (store == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(store);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Store s)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(s).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
 
             return View(s);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Store s = db.stores.Find(id);
+
+            if(s==null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(s);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            Store store = db.stores.Find(id);
+
+            if (store == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.stores.Remove(store);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
