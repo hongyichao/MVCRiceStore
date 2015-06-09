@@ -1,4 +1,5 @@
-﻿@model MVCRiceStore.Models.Store
+﻿@using MVCRiceStore.Models
+@model MVCRiceStore.Models.StoreViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -27,6 +28,26 @@
         <div class="form-group">
             <div class="col-md-4">@Html.Label("Postcode")</div>
             <div class="col-md-8">@Html.EditorFor(model => model.Postcode)</div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("Available Rice")</div>
+            @{
+                var listItems = new List<object>();
+                var riceList = ViewBag.RiceList;
+
+                //var availableRice = Model.store.rices;
+                
+                if(riceList!=null)
+                {
+                    foreach(Rice r in riceList)
+                    {
+                        listItems.Add(new {Value = r.Id.ToString(), Text = r.Description});
+                    }
+                }
+                
+            }
+            <div class="col-md-5">@Html.ListBoxFor(model=>model.rices, new SelectList(listItems,"Value", "Text"))</div>
         </div>
 
         <div class="form-group">

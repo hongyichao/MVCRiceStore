@@ -20,19 +20,45 @@ namespace MVCRiceStore.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.RiceList = db.rices.ToList();
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Store s)
+        public ActionResult Create(StoreViewModel svm)
         {
+            Store s = new Store()
+                      {
+                          Name = svm.Name,
+                          Address = svm.Address,
+                          Suburb = svm.Suburb,
+                          State = svm.State,
+                          Postcode = svm.Postcode
+                      };
+
+            foreach (string riceId in svm.rices)
+            {
+                Rice r = db.rices.Find(Convert.ToInt16(riceId));
+
+                if (r != null)
+                {
+                    if (s.rices == null)
+                    {
+                        s.rices = new List<Rice>();
+                    }
+
+                    s.rices.Add(r);
+                }
+            }
+
             if(ModelState.IsValid)
             {
                 db.stores.Add(s);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(s);
+            return View(svm);
         }
 
         public ActionResult Edit(int? id)
