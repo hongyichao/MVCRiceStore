@@ -85,7 +85,7 @@
                 var myListItems = new List<SelectListItem>();
                 myListItems = ViewBag.MyList;
             }
-            <div class="col-md-9">@Html.ListBox("Rice List", myListItems)</div>
+            <div class="col-md-9">@Html.ListBoxFor(model=>model.rices, myListItems)</div>
             <!--<div class="col-md-9">@Html.ListBox("Rice List", listItems2)</div>-->            
         </div>
         
