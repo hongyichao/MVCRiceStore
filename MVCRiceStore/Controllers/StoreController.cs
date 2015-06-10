@@ -76,8 +76,31 @@ namespace MVCRiceStore.Controllers
             {
                 return HttpNotFound();
             }
-
             ViewBag.RiceList = db.rices.ToList();
+            var myList = new List<SelectListItem>();
+
+            var selectedRices = store.rices.ToList();
+
+            if (ViewBag.RiceList != null)
+            {
+                foreach (Rice r in ViewBag.RiceList)
+                {
+                    var newListItem = new SelectListItem() { Text = r.Type, Value = r.Id.ToString() };
+
+                    if (selectedRices != null)
+                    {
+                        if (selectedRices.IndexOf(r) >= 0)
+                        {
+                            newListItem.Selected = true;
+                        }
+                    }
+                    myList.Add(newListItem);
+                }
+            }
+
+            ViewBag.MyList = myList;
+
+            
             return View(store);
         }
 

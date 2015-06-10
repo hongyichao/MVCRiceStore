@@ -1,4 +1,5 @@
-﻿@using MVCRiceStore.Models;
+﻿@using System.ServiceModel.Dispatcher
+@using MVCRiceStore.Models;
 @model MVCRiceStore.Models.Store
 
 @{
@@ -45,6 +46,9 @@
 
                 var selectedRices = new List<Rice>();
 
+                var riceItems = new List<Object>();
+                var selectedValues = new List<int>();
+
                 if (Model.rices != null) {
                     selectedRices = Model.rices.ToList();
                 }
@@ -53,15 +57,36 @@
                     foreach (Rice r in riceList) {
                         if (selectedRices.IndexOf(r) >= 0)
                         {
-                            listItems.Add(new SelectListItem { Text = r.Type, Value = r.Id.ToString(), Selected = true });
+                            var aSelectedItem = new SelectListItem() { Text = r.Type, Value = r.Id.ToString()};
+
+                            aSelectedItem.Selected = true;
+                            
+                            listItems.Add(aSelectedItem);
+                            selectedValues.Add(r.Id);
                         }
                         else {
-                            listItems.Add(new SelectListItem { Text = r.Type, Value = r.Id.ToString()});
+                            listItems.Add(new SelectListItem(){ Text = r.Type, Value = r.Id.ToString()});
                         }
+                        
+                        riceItems.Add(new {Text=r.Type, Value=r.Id});
+                        
+                        
                     }
-                }                
+                }
+
+                ViewBag.listItems2 = listItems;
+                var listItems2 = new List<SelectListItem>();
+
+                listItems2 = ViewBag.listItems2;
             }
-            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>            
+            <!--<div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>-->
+            <!--<div class="col-md-9">@Html.ListBoxFor(model => model.rices, new MultiSelectList(riceItems, "Value", "Text", selectedValues), new {Multiple = "multiple"})</div>-->
+            @{
+                var myListItems = new List<SelectListItem>();
+                myListItems = ViewBag.MyList;
+            }
+            <div class="col-md-9">@Html.ListBox("Rice List", myListItems)</div>
+            <!--<div class="col-md-9">@Html.ListBox("Rice List", listItems2)</div>-->            
         </div>
         
 
