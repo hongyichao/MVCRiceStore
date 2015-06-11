@@ -41,11 +41,11 @@
         <div class="form-group">
             <div class="col-md-3">@Html.Label("Available Rice")</div>
             @{
-                /*
                 var listItems = new List<SelectListItem>();
+                var listItems2 = new List<Object>();
                 var riceList = ViewBag.RiceList;
 
-                var selectedRices = new List<Rice>();
+                string[] selectedRices;
 
                 var riceItems = new List<Object>();
                 string[] selectedValues;
@@ -56,41 +56,26 @@
 
                 if (riceList != null) {
                     foreach (Rice r in riceList) {
-                        if (selectedRices.IndexOf(r) >= 0)
-                        {
-                            var aSelectedItem = new SelectListItem() { Text = r.Type, Value = r.Id.ToString()};
-
-                            aSelectedItem.Selected = true;
-                            
-                            listItems.Add(aSelectedItem);
-                            selectedValues.Add(r.Id);
-                        }
-                        else {
-                            listItems.Add(new SelectListItem(){ Text = r.Type, Value = r.Id.ToString()});
-                        }
                         
-                        riceItems.Add(new {Text=r.Type, Value=r.Id});
-                        
+                        listItems.Add(new SelectListItem(){ Text = r.Type, Value = r.Id.ToString()});
+                        listItems2.Add(new { Text = r.Type, Value = r.Id.ToString() });
                         
                     }
                 }
-
-                ViewBag.listItems2 = listItems;
-                var listItems2 = new List<SelectListItem>();
-
-                listItems2 = ViewBag.listItems2;
-                 * */
             }
-            @*<div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>*@
-            @*<div class="col-md-9">@Html.ListBoxFor(model => model.rices, new MultiSelectList(riceItems, "Value", "Text", selectedValues), new {Multiple = "multiple"})</div>*@
+                        
             @{
                 var myListItems = new List<SelectListItem>();
                 myListItems = ViewBag.MyList;
                 
                 SelectList sl = new SelectList(myListItems,"Value","Text");
             }
+
+            @*Test Strong Type List Box with 3 different List<SelectListItem>, new SelectList(List<SelectListItem>) and new SelectList(List<Object>) *@
             <div class="col-md-9">@Html.ListBoxFor(model => model.rices, myListItems)</div>
-            @*<div class="col-md-9">@Html.ListBox("Rice List", listItems2)</div>*@            
+            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>
+            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, new SelectList(listItems2,"Value","Text"))</div>
+                   
         </div>
         
 
