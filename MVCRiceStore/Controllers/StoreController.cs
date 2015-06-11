@@ -101,7 +101,19 @@ namespace MVCRiceStore.Controllers
             ViewBag.MyList = myList;
 
             
-            return View(store);
+            StoreViewModel svm = new StoreViewModel()
+                                 {
+                                     Id=store.Id,
+                                     Name = store.Name,
+                                     Address = store.Address,
+                                     Suburb = store.Suburb,
+                                     State = store.State,
+                                     Postcode = store.Postcode
+                                 };
+
+            svm.rices = store.rices.Select(s=>s.Id.ToString()).ToArray();
+
+            return View(svm);
         }
 
         [HttpPost]
@@ -114,6 +126,30 @@ namespace MVCRiceStore.Controllers
 
                 return RedirectToAction("Index");
             }
+
+            ViewBag.RiceList = db.rices.ToList();
+            var myList = new List<SelectListItem>();
+
+            var selectedRices = s.rices.ToList();
+
+            if (ViewBag.RiceList != null)
+            {
+                foreach (Rice r in ViewBag.RiceList)
+                {
+                    var newListItem = new SelectListItem() { Text = r.Type, Value = r.Id.ToString() };
+
+                    if (selectedRices != null)
+                    {
+                        if (selectedRices.IndexOf(r) >= 0)
+                        {
+                            newListItem.Selected = true;
+                        }
+                    }
+                    myList.Add(newListItem);
+                }
+            }
+
+            ViewBag.MyList = myList;
 
             return View(s);
         }

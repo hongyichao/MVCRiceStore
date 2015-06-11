@@ -1,6 +1,6 @@
 ﻿@using System.ServiceModel.Dispatcher
 @using MVCRiceStore.Models;
-@model MVCRiceStore.Models.Store
+@model MVCRiceStore.Models.StoreViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -41,16 +41,17 @@
         <div class="form-group">
             <div class="col-md-3">@Html.Label("Available Rice")</div>
             @{
+                /*
                 var listItems = new List<SelectListItem>();
                 var riceList = ViewBag.RiceList;
 
                 var selectedRices = new List<Rice>();
 
                 var riceItems = new List<Object>();
-                var selectedValues = new List<int>();
+                string[] selectedValues;
 
                 if (Model.rices != null) {
-                    selectedRices = Model.rices.ToList();
+                    selectedRices = Model.rices;
                 }
 
                 if (riceList != null) {
@@ -78,15 +79,18 @@
                 var listItems2 = new List<SelectListItem>();
 
                 listItems2 = ViewBag.listItems2;
+                 * */
             }
-            <!--<div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>-->
-            <!--<div class="col-md-9">@Html.ListBoxFor(model => model.rices, new MultiSelectList(riceItems, "Value", "Text", selectedValues), new {Multiple = "multiple"})</div>-->
+            @*<div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>*@
+            @*<div class="col-md-9">@Html.ListBoxFor(model => model.rices, new MultiSelectList(riceItems, "Value", "Text", selectedValues), new {Multiple = "multiple"})</div>*@
             @{
                 var myListItems = new List<SelectListItem>();
                 myListItems = ViewBag.MyList;
+                
+                SelectList sl = new SelectList(myListItems,"Value","Text");
             }
-            <div class="col-md-9">@Html.ListBoxFor(model=>model.rices, myListItems)</div>
-            <!--<div class="col-md-9">@Html.ListBox("Rice List", listItems2)</div>-->            
+            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, myListItems)</div>
+            @*<div class="col-md-9">@Html.ListBox("Rice List", listItems2)</div>*@            
         </div>
         
 
