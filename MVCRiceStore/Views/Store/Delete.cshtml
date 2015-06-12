@@ -1,4 +1,4 @@
-﻿@model MVCRiceStore.Models.Store
+﻿@model MVCRiceStore.Models.StoreViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -31,7 +31,16 @@
 
         <div class="form-group">
             <div class="col-md-3">@Html.Label("Postcode")</div>
-            <div class="col-md-9">@Html.DisplayFor(model=>model.Postcode)</div>
+            <div class="col-md-9">@Html.DisplayFor(model => model.Postcode)</div>
+        </div>
+
+        @{
+            List<SelectListItem> riceList = ViewBag.RiceList;
+        }
+
+        <div class="form-group">
+            <div class="col-md-3">@Html.Label("Selected Rice")</div>
+            <div class="col-md-9">@Html.ListBoxFor(model=>model.rices, riceList)</div>
         </div>
 
         <div class="form-group">

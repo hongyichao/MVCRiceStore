@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using MVCRiceStore.Models;
@@ -164,14 +165,36 @@ namespace MVCRiceStore.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Store s = db.stores.Find(id);
+            Store store = db.stores.Include(s=>s.rices).SingleOrDefault(s=>s.Id==id);
 
-            if(s==null)
+            if(store==null)
             {
                 return HttpNotFound();
             }
 
-            return View(s);
+            StoreViewModel svm = new StoreViewModel()
+                                 {
+                                     Id = store.Id,
+                                     Name = store.Name,
+                                     Address = store.Address,
+                                     Suburb = store.Suburb,
+                                     State =store.State,
+                                     Postcode = store.Postcode
+                                 };
+
+
+            svm.rices = store.rices.Select(r => r.Id.ToString()).ToArray();
+
+            var riceList = new List<SelectListItem>();
+
+            foreach (Rice rice in db.rices)
+            {
+                riceList.Add(new SelectListItem(){Text=rice.Type, Value = rice.Id.ToString()});
+            }
+
+            ViewBag.RiceList = riceList;
+
+            return View(svm);
         }
 
         [HttpPost]
