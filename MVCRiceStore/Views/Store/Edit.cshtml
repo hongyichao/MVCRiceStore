@@ -72,9 +72,9 @@
             }
 
             @*Test Strong Type List Box with 3 different List<SelectListItem>, new SelectList(List<SelectListItem>) and new SelectList(List<Object>) *@
-            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, myListItems)</div>
-            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>
-            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, new SelectList(listItems2,"Value","Text"))</div>
+            <div class="col-md-9">@Html.ListBoxFor(model => model.rices, ViewBag.MyList as List<SelectListItem>)</div>
+            @*<div class="col-md-9">@Html.ListBoxFor(model => model.rices, listItems)</div>*@
+            @*<div class="col-md-9">@Html.ListBoxFor(model => model.rices, new SelectList(listItems2,"Value","Text"))</div>*@
                    
         </div>
         

@@ -76,30 +76,18 @@ namespace MVCRiceStore.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.RiceList = db.rices.ToList();
+            
             var myList = new List<SelectListItem>();
 
-            var selectedRices = store.rices.ToList();
-
-            if (ViewBag.RiceList != null)
+            if (db.rices != null)
             {
-                foreach (Rice r in ViewBag.RiceList)
+                foreach (Rice r in db.rices)
                 {
-                    var newListItem = new SelectListItem() { Text = r.Type, Value = r.Id.ToString() };
-
-                    if (selectedRices != null)
-                    {
-                        if (selectedRices.IndexOf(r) >= 0)
-                        {
-                            newListItem.Selected = true;
-                        }
-                    }
-                    myList.Add(newListItem);
+                    myList.Add(new SelectListItem() { Text = r.Type, Value = r.Id.ToString() });
                 }
             }
 
             ViewBag.MyList = myList;
-
             
             StoreViewModel svm = new StoreViewModel()
                                  {
@@ -117,10 +105,36 @@ namespace MVCRiceStore.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Store s)
+        public ActionResult Edit(StoreViewModel svm)
         {
             if (ModelState.IsValid)
             {
+
+                Store s = db.stores.Include(x=>x.rices).SingleOrDefault(x=>x.Id==svm.Id);
+                if (s == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                s.rices = null;
+
+                if (svm.rices != null)
+                {
+                    foreach (string riceId in svm.rices)
+                    {
+                        Rice r = db.rices.Find(Convert.ToInt32(riceId));
+
+                        if (s.rices == null)
+                        {
+                            s.rices = new List<Rice>();
+                        }
+
+                        if (r != null)
+                        {
+                            s.rices.Add(r);
+                        }
+                    }
+                }
+
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -130,28 +144,17 @@ namespace MVCRiceStore.Controllers
             ViewBag.RiceList = db.rices.ToList();
             var myList = new List<SelectListItem>();
 
-            var selectedRices = s.rices.ToList();
-
             if (ViewBag.RiceList != null)
             {
                 foreach (Rice r in ViewBag.RiceList)
                 {
-                    var newListItem = new SelectListItem() { Text = r.Type, Value = r.Id.ToString() };
-
-                    if (selectedRices != null)
-                    {
-                        if (selectedRices.IndexOf(r) >= 0)
-                        {
-                            newListItem.Selected = true;
-                        }
-                    }
-                    myList.Add(newListItem);
+                    myList.Add(new SelectListItem() { Text = r.Type, Value = r.Id.ToString() });
                 }
             }
 
             ViewBag.MyList = myList;
 
-            return View(s);
+            return View(svm);
         }
 
         public ActionResult Delete(int? id)
