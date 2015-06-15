@@ -11,7 +11,7 @@ namespace MVCRiceStore.Models
         public string Name { get; set; }
         public string Note { get; set; }
 
-        public ICollection<Store> stores { get; set; }
+        public ICollection<ClientOrder> ClientOrders { get; set; }
 
     }
 }

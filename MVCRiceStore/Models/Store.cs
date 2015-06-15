@@ -15,6 +15,6 @@ namespace MVCRiceStore.Models
         public string Postcode { get; set; }
 
         public ICollection<Rice> rices { get; set; }
-        public virtual Client client { get; set; }
+        
     }
 }
