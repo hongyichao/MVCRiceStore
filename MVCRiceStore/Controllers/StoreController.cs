@@ -42,7 +42,7 @@ namespace MVCRiceStore.Controllers
                 foreach (string riceId in svm.rices)
                 {
                     Rice r = db.rices.Find(Convert.ToInt16(riceId));
-
+                    
                     if (r != null)
                     {
                         if (s.rices == null)
@@ -79,7 +79,7 @@ namespace MVCRiceStore.Controllers
             }
             
             var myList = new List<SelectListItem>();
-
+            /*
             if (db.rices != null)
             {
                 foreach (Rice r in db.rices)
@@ -87,7 +87,12 @@ namespace MVCRiceStore.Controllers
                     myList.Add(new SelectListItem() { Text = r.Type, Value = r.Id.ToString() });
                 }
             }
-
+            */
+            if (db.rices != null)
+            {
+                myList = db.rices.Select(r => new SelectListItem() { Text = r.Type, Value = r.Id.ToString() }).ToList();
+            }
+            
             ViewBag.MyList = myList;
             
             StoreViewModel svm = new StoreViewModel()
@@ -142,15 +147,12 @@ namespace MVCRiceStore.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RiceList = db.rices.ToList();
+            
             var myList = new List<SelectListItem>();
 
-            if (ViewBag.RiceList != null)
+            if (db.rices != null)
             {
-                foreach (Rice r in ViewBag.RiceList)
-                {
-                    myList.Add(new SelectListItem() { Text = r.Type, Value = r.Id.ToString() });
-                }
+                myList = db.rices.Select(r => new SelectListItem() { Text = r.Type, Value = r.Id.ToString() }).ToList();
             }
 
             ViewBag.MyList = myList;
