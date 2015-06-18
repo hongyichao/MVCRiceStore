@@ -35,6 +35,22 @@
 
     <div class="col-md-8">
         Client Order List
+        <p>@Html.ActionLink("Create Order", "Create", "ClientOrder")</p>
+        <table class="table">
+            <tr>
+                <th>@Html.DisplayName("Store")</th>
+                <th>@Html.DisplayName("Rice Type")</th>
+                <th>@Html.DisplayName("Kilograms")</th>
+            </tr>
+            @foreach (var clientOrder in Model.ClientOrders)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(c => clientOrder.StoreId)</td>
+                    <td>@Html.DisplayFor(c => clientOrder.RiceId)</td>
+                    <td>@Html.DisplayFor(c=>clientOrder.Kilogram)</td>
+                </tr>
+            }
+        </table>
     </div>
 </div>
 

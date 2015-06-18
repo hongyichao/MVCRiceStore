@@ -43,7 +43,7 @@ namespace MVCRiceStore.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);               
             }
 
-            Client client = db.clients.Find(id);
+            Client client = db.clients.Include(c => c.ClientOrders).SingleOrDefault(c => c.Id == id);
             if (client == null)
             {
                 return HttpNotFound();
