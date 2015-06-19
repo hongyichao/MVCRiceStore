@@ -20,5 +20,11 @@
             <div class="col-lg-4">@Html.Label("Rices")</div>
             <div class="">@Html.DropDownListFor(model => model.RiceId, riceList)</div>
         </div>
+
+        <div class="form-group">
+            <div class="col-md-4">@Html.Label("Kilograms")</div>
+            <div class="col-md-4">@Html.EditorFor(model => model.Kilogram)</div>
+        </div>
+
     </div>
 }
