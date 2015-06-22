@@ -35,7 +35,7 @@
 
     <div class="col-md-8">
         Client Order List
-        <p>@Html.ActionLink("Create Order", "Create", "ClientOrder")</p>
+        <p>@Html.ActionLink("Create Order", "Create", "ClientOrder", new {clientId=Model.Id}, null)</p>
         <table class="table">
             <tr>
                 <th>@Html.DisplayName("Store")</th>

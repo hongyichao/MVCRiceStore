@@ -1,4 +1,4 @@
-﻿@model MVCRiceStore.Models.ClientOrder
+﻿@model MVCRiceStore.Models.ClientOrderViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,6 +7,7 @@
 }
 
 <h2>Create</h2>
+<h3>Client Id: @Model.ClientId</h3>
 
 @using (Html.BeginForm())
 {

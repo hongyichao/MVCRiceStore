@@ -189,6 +189,7 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ClientOrder.cs" />
+    <Compile Include="Models\ClientOrderViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Rice.cs" />

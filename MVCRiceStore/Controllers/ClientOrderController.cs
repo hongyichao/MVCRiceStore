@@ -16,12 +16,14 @@ namespace MVCRiceStore.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int clientId)
         {
             ViewBag.StoreList = db.stores.Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
             ViewBag.RiceList = db.rices.Select(r => new SelectListItem() { Text = r.Type, Value = r.Id.ToString() }).ToList();
 
-            return View();
+            ClientOrderViewModel clientOrderVM = new ClientOrderViewModel() { ClientId = clientId };
+            
+            return View(clientOrderVM);
         }
     }
 }
