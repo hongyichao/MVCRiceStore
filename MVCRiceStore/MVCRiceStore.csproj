@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201506151157237_add_clientOders.Designer.cs">
       <DependentUpon>201506151157237_add_clientOders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506290654177_AddClientOrder.cs" />
+    <Compile Include="Migrations\201506290654177_AddClientOrder.Designer.cs">
+      <DependentUpon>201506290654177_AddClientOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -297,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506151157237_add_clientOders.resx">
       <DependentUpon>201506151157237_add_clientOders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506290654177_AddClientOrder.resx">
+      <DependentUpon>201506290654177_AddClientOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

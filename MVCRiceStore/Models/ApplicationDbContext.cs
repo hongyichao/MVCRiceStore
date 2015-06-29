@@ -22,5 +22,6 @@ namespace MVCRiceStore.Models
         public DbSet<Rice> rices { get; set; }
         public DbSet<Store> stores { get; set; }
         public DbSet<Client> clients { get; set; }
+        public DbSet<ClientOrder> Orders { get; set; }
     }
 }
