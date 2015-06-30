@@ -1,4 +1,5 @@
-﻿@model MVCRiceStore.Models.Client
+﻿@using MVCRiceStore.Models
+@model MVCRiceStore.Models.Client
 
 @{
     ViewBag.Title = "Edit";
@@ -36,29 +37,22 @@
     <div class="col-md-8">
         Client Order List
         <p>@Html.ActionLink("Create Order", "Create", "ClientOrder", new {clientId=Model.Id}, null)</p>
-        <table class="table">
-            <tr>
-                <th>@Html.DisplayName("Store")</th>
-                <th>@Html.DisplayName("Rice Type")</th>
-                <th>@Html.DisplayName("Kilograms")</th>
-            </tr>
-            @foreach (var clientOrder in Model.ClientOrders)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(c => clientOrder.StoreId)</td>
-                    <td>@Html.DisplayFor(c => clientOrder.RiceId)</td>
-                    <td>@Html.DisplayFor(c=>clientOrder.Kilogram)</td>
-                </tr>
-            }
-        </table>
-
-        <br/>
+        @{
+            List<OrderViewModel> orderList = ViewBag.OrderDisplayList;            
+        }
         <table class="table">
             <tr>
                 <th>@Html.DisplayName("Store")</th>
                 <th>@Html.DisplayName("Rice")</th>
                 <th>@Html.DisplayName("Kilo")</th>
             </tr>
+            @foreach (var obj in orderList){
+                <tr>
+                    <td>@Html.DisplayFor(o => obj.StoreName )</td>
+                    <td>@Html.DisplayFor(o => obj.RiceType)</td>
+                    <td>@Html.DisplayFor(o=> obj.Kilogram)</td>
+                </tr>                
+            }
         </table>
 
     </div>

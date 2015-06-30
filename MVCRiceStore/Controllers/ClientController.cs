@@ -38,15 +38,8 @@ namespace MVCRiceStore.Controllers
 
         public ActionResult Edit(int? id)
         {
-            var test = (from cl in db.Orders
-                       join st in db.stores on cl.StoreId equals st.Id
-                       join ri in db.rices on cl.RiceId equals ri.Id 
-                       where cl.Client.Id == id
-                       select new { st.Name, cl.StoreId, ri.Type, cl.RiceId, cl.Kilogram }).ToList();
-
-            ViewBag.TestList = test;
-
-
+            ViewBag.OrderDisplayList = GetOrderDisplayList(id);
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);               
@@ -63,15 +56,35 @@ namespace MVCRiceStore.Controllers
 
         [HttpPost]
         public ActionResult Edit(Client client) {
-
+            
             if (ModelState.IsValid) {
                 db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-
+            ViewBag.OrderDisplayList = GetOrderDisplayList(client.Id);
             return View(client);
+        }
+
+
+        public List<OrderViewModel> GetOrderDisplayList(int? clientId) {
+
+            var orderDisplayList = new List<OrderViewModel>();
+            if (clientId == null) return orderDisplayList;
+
+            var clientOrders = (from cl in db.Orders
+                                join st in db.stores on cl.StoreId equals st.Id
+                                join ri in db.rices on cl.RiceId equals ri.Id
+                                where cl.Client.Id == clientId
+                                select new { st.Name, cl.StoreId, ri.Type, cl.RiceId, cl.Kilogram });
+
+            foreach (var obj in clientOrders)
+            {
+                orderDisplayList.Add(new OrderViewModel() { StoreName = obj.Name, StoreId = obj.StoreId, RiceType = obj.Type, RiceId = obj.RiceId, Kilogram = obj.Kilogram });
+            }
+
+            return orderDisplayList;
         }
 
         public ActionResult Delete(int? id) {
