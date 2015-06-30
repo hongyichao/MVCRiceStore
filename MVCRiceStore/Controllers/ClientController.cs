@@ -38,6 +38,15 @@ namespace MVCRiceStore.Controllers
 
         public ActionResult Edit(int? id)
         {
+            var test = (from cl in db.Orders
+                       join st in db.stores on cl.StoreId equals st.Id
+                       join ri in db.rices on cl.RiceId equals ri.Id 
+                       where cl.Client.Id == id
+                       select new { st.Name, cl.StoreId, ri.Type, cl.RiceId, cl.Kilogram }).ToList();
+
+            ViewBag.TestList = test;
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);               
