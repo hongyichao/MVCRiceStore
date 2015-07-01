@@ -77,14 +77,11 @@ namespace MVCRiceStore.Controllers
                                 join st in db.stores on cl.StoreId equals st.Id
                                 join ri in db.rices on cl.RiceId equals ri.Id
                                 where cl.Client.Id == clientId
-                                select new { st.Name, cl.StoreId, ri.Type, cl.RiceId, cl.Kilogram });
+                                select new OrderViewModel{StoreName = st.Name, StoreId = cl.StoreId, RiceType = ri.Type, 
+                                    RiceId = cl.RiceId, Kilogram = cl.Kilogram });
 
-            foreach (var obj in clientOrders)
-            {
-                orderDisplayList.Add(new OrderViewModel() { StoreName = obj.Name, StoreId = obj.StoreId, RiceType = obj.Type, RiceId = obj.RiceId, Kilogram = obj.Kilogram });
-            }
+            return clientOrders.ToList();
 
-            return orderDisplayList;
         }
 
         public ActionResult Delete(int? id) {
