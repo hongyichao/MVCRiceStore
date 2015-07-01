@@ -9,7 +9,10 @@
 
 <h2>@Html.DisplayFor(model=>model.Name)</h2>
 
-
+@{
+    var message = "";
+    
+}
 <div class="row">
     <div class="col-md-4">
         @using (Html.BeginForm())
@@ -18,13 +21,14 @@
             <div class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-4">@Html.Label("Name")</div>
-                    <div class="col-md-8">@Html.EditorFor(model => model.Name)</div>
-
+                    <div class="col-md-4">@Html.EditorFor(model => model.Name)</div>
+                    <div class="col-md-4 field-validation-error ">@Html.ValidationMessageFor(model=>model.Name)</div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-4">@Html.Label("Note")</div>
-                    <div class="col-md-8">@Html.TextAreaFor(model => model.Note)</div>
+                    <div class="col-md-4">@Html.TextAreaFor(model => model.Note)</div>
+                    <div class="col-md-4"></div>
                 </div>
 
                 <div class="form-group">

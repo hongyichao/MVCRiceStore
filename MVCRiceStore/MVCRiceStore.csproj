@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201506290654177_AddClientOrder.Designer.cs">
       <DependentUpon>201506290654177_AddClientOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507010712586_ClientNameIsRequired.cs" />
+    <Compile Include="Migrations\201507010712586_ClientNameIsRequired.Designer.cs">
+      <DependentUpon>201507010712586_ClientNameIsRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -305,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506290654177_AddClientOrder.resx">
       <DependentUpon>201506290654177_AddClientOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507010712586_ClientNameIsRequired.resx">
+      <DependentUpon>201507010712586_ClientNameIsRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
