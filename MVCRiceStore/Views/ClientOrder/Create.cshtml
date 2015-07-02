@@ -1,34 +1,46 @@
 ﻿@model MVCRiceStore.Models.ClientOrderViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add New Order";
     List<SelectListItem> storeList = ViewBag.StoreList;
     List<SelectListItem> riceList = ViewBag.RiceList;
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 <h3>Client Id: @Model.ClientId</h3>
 
 @using (Html.BeginForm())
 {
     <div class="form-horizontal">
         <div class="form-group">
-            <div class="col-md-4">@Html.Label("Stores")</div>
-            <div class="col-md-8">@Html.DropDownListFor(model => model.StoreId, storeList)</div>
+            <div class="control-label col-md-2">@Html.Label("Stores")</div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.StoreId, storeList, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
         </div>
 
         <div class="form-group">
-            <div class="col-lg-4">@Html.Label("Rices")</div>
-            <div class="">@Html.DropDownListFor(model => model.RiceId, riceList)</div>
+            <div class="control-label col-md-2">@Html.Label("Rices")</div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.RiceId, riceList, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-4">@Html.Label("Kilograms")</div>
-            <div class="col-md-4">@Html.EditorFor(model => model.Kilogram)</div>
+            <div class="control-label col-md-2">@Html.Label("Kilograms")</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Kilogram, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Create"/>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />    
+            </div>
         </div>
     </div>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Edit", "Client", new {id=Model.ClientId}, null)
+</div>

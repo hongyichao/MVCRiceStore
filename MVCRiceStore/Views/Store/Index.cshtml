@@ -15,6 +15,7 @@
         <th>@Html.DisplayNameFor(model => model.Address)</th>
         <th>@Html.DisplayNameFor(model => model.Suburb)</th>
         <th>@Html.DisplayNameFor(model => model.Postcode)</th>
+        <th></th>
     </tr>
 @foreach(var store in Model)
 {
@@ -23,8 +24,10 @@
         <td>@Html.DisplayFor(modelStore => store.Address)</td>
         <td>@Html.DisplayFor(modelStore => store.Suburb)</td>
         <td>@Html.DisplayFor(modelStore => store.Postcode)</td>
-        <td>@Html.ActionLink("Edit", "Edit", new {id = store.Id})</td>
-        <td>@Html.ActionLink("Delete", "Delete", new {id=store.Id})</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {id = store.Id}) | 
+            @Html.ActionLink("Delete", "Delete", new {id = store.Id})
+        </td>
     </tr>
 }
 </table>

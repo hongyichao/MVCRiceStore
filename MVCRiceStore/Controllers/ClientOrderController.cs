@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -84,8 +85,45 @@ namespace MVCRiceStore.Controllers
                 return RedirectToAction("Edit","Client",new {id= currentOrder.Client.Id});
             }
 
-
             return View(order);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            OrderViewModel orderInfo = (from co in db.Orders
+                            join s in db.stores on co.StoreId equals s.Id
+                            join r in db.rices on co.RiceId equals r.Id
+                            where co.Id == id
+                            select new OrderViewModel()
+                            {
+                                ClientOrderId = co.Id.ToString(),
+                                StoreId = s.Id,
+                                StoreName = s.Name,
+                                RiceId = r.Id,
+                                RiceType = r.Type,
+                                Kilogram = co.Kilogram
+                            }).SingleOrDefault();
+
+
+            return View(orderInfo);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            ClientOrder co = db.Orders.Include("Client").SingleOrDefault(o => o.Id == id);
+
+            int clientId = co.Client.Id;
+
+            db.Orders.Remove(co);
+            db.SaveChanges();
+            
+            return RedirectToAction("Edit", "Client", new {id=clientId});
         }
     }
 }
