@@ -77,7 +77,7 @@ namespace MVCRiceStore.Controllers
                                 join st in db.stores on cl.StoreId equals st.Id
                                 join ri in db.rices on cl.RiceId equals ri.Id
                                 where cl.Client.Id == clientId
-                                select new OrderViewModel{StoreName = st.Name, StoreId = cl.StoreId, RiceType = ri.Type, 
+                                select new OrderViewModel{ClientOrderId = cl.Id.ToString(), StoreName = st.Name, StoreId = cl.StoreId, RiceType = ri.Type, 
                                     RiceId = cl.RiceId, Kilogram = cl.Kilogram });
 
             return clientOrders.ToList();

@@ -7,6 +7,7 @@ namespace MVCRiceStore.Models
 {
     public class OrderViewModel
     {
+        public string ClientOrderId { get; set; }
         public string StoreName { get; set; }
         public int StoreId { get; set; }
         public string RiceType { get; set; }

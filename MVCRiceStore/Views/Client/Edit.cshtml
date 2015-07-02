@@ -54,7 +54,8 @@
                 <tr>
                     <td>@Html.DisplayFor(o => obj.StoreName )</td>
                     <td>@Html.DisplayFor(o => obj.RiceType)</td>
-                    <td>@Html.DisplayFor(o=> obj.Kilogram)</td>
+                    <td>@Html.DisplayFor(o => obj.Kilogram)</td>
+                    <td>@Html.ActionLink("Edit","Edit", "ClientOrder", new {id = obj.ClientOrderId}, null)</td>
                 </tr>                
             }
         </table>
