@@ -1,8 +1,36 @@
-﻿@model MVCRiceStore.Models.ClientOrder
+﻿@model IEnumerable<MVCRiceStore.Models.OrderViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Client Orders";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
+<br/><br/>
+@using (Ajax.BeginForm(new AjaxOptions()
+                       {
+                           HttpMethod = "get",
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "orderList"
+                       }))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.Label("Store Name") 
+                @Html.TextBox("StoreName")
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Client Name")
+                @Html.TextBox("ClientName")
+            </div>
+            <div class="col-md-6">
+                <input type="submit" value="Search" />
+            </div>
+        </div>
+
+    </div>
+}
+<br/><br/>
+
+@Html.Partial("Orders", Model)

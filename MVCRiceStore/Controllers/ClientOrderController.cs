@@ -14,9 +14,27 @@ namespace MVCRiceStore.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: ClientOrder
-        public ActionResult Index()
+        public ActionResult Index(string storeName, string clientName)
         {
-            return View();
+            var orderList = (from o in db.Orders
+                            join s in db.stores on o.StoreId equals s.Id
+                            join r in db.rices on o.RiceId equals r.Id
+                             where (s.Name.Contains(storeName) ||  string.IsNullOrEmpty(storeName))
+                              && (o.Client.Name.Contains(clientName) || string.IsNullOrEmpty(clientName))
+                            select new OrderViewModel()
+                                   {
+                                       ClientOrderId = o.Id.ToString(), 
+                                       StoreId = s.Id, StoreName = s.Name, 
+                                       RiceId = r.Id, RiceType = r.Type,
+                                       ClientId = o.Client.Id, ClientName = o.Client.Name
+                                   }).ToList();
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("Orders", orderList);
+            }
+
+            return View(orderList);
         }
 
         public ActionResult Create(int clientId)

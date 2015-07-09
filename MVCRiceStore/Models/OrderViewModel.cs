@@ -14,5 +14,8 @@ namespace MVCRiceStore.Models
         public int RiceId { get; set; }
         public int Kilogram { get; set; }
 
+        public int ClientId { get; set; }
+        public string ClientName { get; set; }
+
     }
 }
