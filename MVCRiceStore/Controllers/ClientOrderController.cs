@@ -76,7 +76,7 @@ namespace MVCRiceStore.Controllers
         }
 
         public ActionResult Edit(int? id) {
-            ClientOrder order = db.Orders.Find(id);
+            ClientOrder order = db.Orders.Include("Client").SingleOrDefault(o=>o.Id==id);
 
             ViewBag.StoreList = db.stores.Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
             ViewBag.RiceList = db.rices.Select(r => new SelectListItem() { Text = r.Type, Value = r.Id.ToString() }).ToList();

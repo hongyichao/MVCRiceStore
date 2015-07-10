@@ -2,17 +2,17 @@
 @model MVCRiceStore.Models.Client
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Client";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
-<h2>@Html.DisplayFor(model=>model.Name)</h2>
+@*<h2>@Html.DisplayFor(model=>model.Name)</h2>*@
 
 @{
     var message = "";
-    
 }
+<br/><br/>
 <div class="row">
     <div class="col-md-4">
         @using (Html.BeginForm())
@@ -30,7 +30,7 @@
                     <div class="col-md-4">@Html.TextAreaFor(model => model.Note)</div>
                     <div class="col-md-4"></div>
                 </div>
-
+                <br/><br/><br /><br /><br /><br /><br />
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
@@ -63,5 +63,7 @@
 
     </div>
 </div>
-
+<div class="row">
+    @Html.ActionLink("Back to Client List", "Index")
+</div>
 
