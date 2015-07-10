@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using MVCRiceStore.Models;
+using PagedList;
 
 namespace MVCRiceStore.Controllers
 {
@@ -14,7 +15,7 @@ namespace MVCRiceStore.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: ClientOrder
-        public ActionResult Index(string storeName, string clientName)
+        public ActionResult Index(string storeName, string clientName, int page=1)
         {
             var orderList = (from o in db.Orders
                             join s in db.stores on o.StoreId equals s.Id
@@ -26,8 +27,9 @@ namespace MVCRiceStore.Controllers
                                        ClientOrderId = o.Id.ToString(), 
                                        StoreId = s.Id, StoreName = s.Name, 
                                        RiceId = r.Id, RiceType = r.Type,
-                                       ClientId = o.Client.Id, ClientName = o.Client.Name
-                                   }).ToList();
+                                       ClientId = o.Client.Id, ClientName = o.Client.Name,
+                                       Kilogram = o.Kilogram
+                                   }).ToList().ToPagedList(page, 10);
 
             if (Request.IsAjaxRequest())
             {

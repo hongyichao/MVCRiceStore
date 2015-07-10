@@ -1,6 +1,12 @@
-﻿@model IEnumerable<MVCRiceStore.Models.OrderViewModel>
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<MVCRiceStore.Models.OrderViewModel>
+
+@*@model IEnumerable<MVCRiceStore.Models.OrderViewModel>*@
+
 
 <div id="orderList">
+
     <table class="table">
         <tr>
             <th>@Html.DisplayName("Order Id")</th>
@@ -22,6 +28,8 @@
             </tr>
         }
     </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new{page}))
 </div>
 
 
