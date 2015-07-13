@@ -207,6 +207,7 @@
     <Compile Include="Models\ClientOrderViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderListViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\Rice.cs" />
     <Compile Include="Models\Store.cs" />

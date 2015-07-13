@@ -1,9 +1,14 @@
 ﻿
+@using System.Security.Cryptography.X509Certificates
+@using MVCRiceStore.Models
+@using PagedList
 @using PagedList.Mvc
-@model PagedList.IPagedList<MVCRiceStore.Models.OrderViewModel>
+@model OrderListViewModel
 
-@*@model IEnumerable<MVCRiceStore.Models.OrderViewModel>*@
-
+@{
+    IPagedList<OrderViewModel> pagedList = Model.OrderList;
+    string storeName = Model.StoreName;
+}
 
 <div id="orderList">
 
@@ -16,7 +21,7 @@
             <th>@Html.DisplayName("Rice Type")</th>
             <th>@Html.DisplayName("Kilogram")</th>
         </tr>
-        @foreach (var order in Model)
+        @foreach (var order in pagedList)
         {
             <tr>
                 <td>@Html.DisplayFor(o => order.ClientOrderId)</td>
@@ -28,8 +33,8 @@
             </tr>
         }
     </table>
-
-    @Html.PagedListPager(Model, page => Url.Action("Index", new{page}))
+    
+    @Html.PagedListPager(pagedList, page => Url.Action("Index", new { page, storeNameF = Model.StoreName, clientNameF = Model.ClientName }))
 </div>
 
 

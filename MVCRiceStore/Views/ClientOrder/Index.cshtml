@@ -1,6 +1,7 @@
 ﻿@using MVCRiceStore.Models
-@model PagedList.IPagedList<OrderViewModel>
-@*@model IEnumerable<MVCRiceStore.Models.OrderViewModel>*@
+@using PagedList
+@model OrderListViewModel
+
 
 @{
     ViewBag.Title = "Client Orders";
@@ -20,11 +21,13 @@
         <div class="form-group">
             <div class="col-md-3">
                 @Html.Label("Store Name") 
-                @Html.TextBox("StoreName")
+                
+                @Html.TextBoxFor(model => model.StoreName)
             </div>
             <div class="col-md-3">
                 @Html.Label("Client Name")
-                @Html.TextBox("ClientName")
+                
+                @Html.TextBoxFor(model => model.ClientName)
             </div>
             <div class="col-md-6">
                 <input type="submit" value="Search" />
@@ -34,5 +37,6 @@
     </div>
 }
 <br/><br/>
+
 
 @Html.Partial("Orders", Model)

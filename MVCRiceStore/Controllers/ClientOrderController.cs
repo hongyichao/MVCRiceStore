@@ -15,8 +15,15 @@ namespace MVCRiceStore.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: ClientOrder
-        public ActionResult Index(string storeName, string clientName, int page=1)
+        public ActionResult Index(string storeName, string clientName, 
+            string storeNameF, string clientNameF, int page=1)
         {
+            if (!Request.IsAjaxRequest())
+            {
+                storeName = storeNameF;
+                clientName = clientNameF;
+            }
+
             var orderList = (from o in db.Orders
                             join s in db.stores on o.StoreId equals s.Id
                             join r in db.rices on o.RiceId equals r.Id
@@ -31,12 +38,19 @@ namespace MVCRiceStore.Controllers
                                        Kilogram = o.Kilogram
                                    }).ToList().ToPagedList(page, 10);
 
+            var orderListVm = new OrderListViewModel()
+            {
+                OrderList = orderList,
+                StoreName = storeName,
+                ClientName = clientName
+            };
+            
             if (Request.IsAjaxRequest())
             {
-                return PartialView("Orders", orderList);
+                return PartialView("Orders", orderListVm);
             }
 
-            return View(orderList);
+            return View(orderListVm);
         }
 
         public ActionResult Create(int clientId)
