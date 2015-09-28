@@ -178,7 +178,7 @@ namespace MVCRiceStore.Controllers
             {
                 foreach (Rice r in store.rices)
                 {
-                    rices.Add(new SelectListItem(){Text = r.Type, Value = r.Id});
+                    rices.Add(new SelectListItem(){Text = r.Type, Value = r.Id.ToString()});
                 }
             }
 
