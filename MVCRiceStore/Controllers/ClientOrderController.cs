@@ -29,6 +29,7 @@ namespace MVCRiceStore.Controllers
                             join r in db.rices on o.RiceId equals r.Id
                              where (s.Name.Contains(storeName) ||  string.IsNullOrEmpty(storeName))
                               && (o.Client.Name.Contains(clientName) || string.IsNullOrEmpty(clientName))
+                            orderby o.Client.Name
                             select new OrderViewModel()
                                    {
                                        ClientOrderId = o.Id.ToString(), 
@@ -36,7 +37,7 @@ namespace MVCRiceStore.Controllers
                                        RiceId = r.Id, RiceType = r.Type,
                                        ClientId = o.Client.Id, ClientName = o.Client.Name,
                                        Kilogram = o.Kilogram
-                                   }).ToList().ToPagedList(page, 10);
+                                   }).ToPagedList(page, 10);
 
             var orderListVm = new OrderListViewModel()
             {
@@ -158,6 +159,30 @@ namespace MVCRiceStore.Controllers
             db.SaveChanges();
             
             return RedirectToAction("Edit", "Client", new {id=clientId});
+        }
+
+        public ActionResult GetStoreList()
+        {
+            var stores = from s in db.stores
+                         select new SelectListItem() { Text = s.Name, Value = s.Id.ToString() };
+
+            return Json(stores);
+        }
+
+        public ActionResult GetStoreAvailableRice(int storeId)
+        {
+            var store = (db.stores.Include(s => s.rices).Where(s => s.Id == storeId)).SingleOrDefault();
+
+            var rices = new List<SelectListItem>();
+            if (store != null)
+            {
+                foreach (Rice r in store.rices)
+                {
+                    rices.Add(new SelectListItem(){Text = r.Type, Value = r.Id});
+                }
+            }
+
+            return Json(rices);
         }
     }
 }

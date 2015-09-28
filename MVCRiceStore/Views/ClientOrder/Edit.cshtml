@@ -16,13 +16,23 @@
             <div class="form-group">
                 <div class="col-md-1"></div>
                 <div class="col-md-1">@Html.Label("Store")</div>
-                <div class="col-md-10">@Html.DropDownListFor(model => model.StoreId, storeList)</div>
+                <div class="col-md-5">@Html.DropDownListFor(model => model.StoreId, storeList)</div>
+                <div class="col-md-5">
+                    <select id="store" name="store">
+                        <option value=""></option>
+                    </select>
+                </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-1"></div>
                 <div class="col-md-1">@Html.Label("Rice")</div>
-                <div class="col-md-10">@Html.DropDownListFor(model => model.RiceId, riceList)</div>
+                <div class="col-md-5">@Html.DropDownListFor(model => model.RiceId, riceList)</div>
+                <div class="col-md-5">
+                    <select id="rice" name="rice">
+                        <option value=""></option>
+                    </select>
+                </div>
             </div>
 
             <div class="form-group">
@@ -42,5 +52,5 @@
 
 
 <div class="row">
-    @Html.ActionLink("back to client view", "Edit", "Client", new {id=Model.Client.Id}, null);
+    @Html.ActionLink("back to client view", "Edit", "Client", new {id=Model.Client.Id}, null)
 </div>

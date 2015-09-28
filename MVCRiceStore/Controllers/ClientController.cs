@@ -31,7 +31,7 @@ namespace MVCRiceStore.Controllers
             if (ModelState.IsValid) {
                 db.clients.Add(client);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", new { id = client.Id });
             }
             return View(client);            
         }
