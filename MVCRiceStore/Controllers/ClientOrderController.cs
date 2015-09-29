@@ -94,7 +94,7 @@ namespace MVCRiceStore.Controllers
 
         public ActionResult Edit(int? id) {
             ClientOrder order = db.Orders.Include("Client").SingleOrDefault(o=>o.Id==id);
-
+            
             ViewBag.StoreList = db.stores.Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
             ViewBag.RiceList = db.rices.Select(r => new SelectListItem() { Text = r.Type, Value = r.Id.ToString() }).ToList();
             
@@ -161,14 +161,17 @@ namespace MVCRiceStore.Controllers
             return RedirectToAction("Edit", "Client", new {id=clientId});
         }
 
-        public ActionResult GetStoreList()
+        [HttpGet]
+        public ActionResult GetStoreList(int clientOrderId)
         {
-            var stores = from s in db.stores
-                         select new SelectListItem() { Text = s.Name, Value = s.Id.ToString() };
+            var stores = from s in db.stores 
+                         select new SelectListItem() { Text = s.Name, Value = s.Id.ToString()};
+            
 
-            return Json(stores);
+            return Json(stores, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult GetStoreAvailableRice(int storeId)
         {
             var store = (db.stores.Include(s => s.rices).Where(s => s.Id == storeId)).SingleOrDefault();
@@ -182,7 +185,7 @@ namespace MVCRiceStore.Controllers
                 }
             }
 
-            return Json(rices);
+            return Json(rices, JsonRequestBehavior.AllowGet);
         }
     }
 }

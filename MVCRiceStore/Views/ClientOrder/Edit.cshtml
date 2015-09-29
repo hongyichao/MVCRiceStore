@@ -12,6 +12,8 @@
 <div class="row">
     @using (Html.BeginForm())
     {
+        <input type="hidden" id="ViewName" value="ClientOrderEditView"/>
+        @Html.HiddenFor(model => model.Id)
         <div class="form-horizontal">
             <div class="form-group">
                 <div class="col-md-1"></div>
