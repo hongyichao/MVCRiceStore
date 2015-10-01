@@ -1,15 +1,16 @@
-﻿$("#store").change(function () {
+﻿$("#StoreId").change(function () {
     var storeId = "";
-    $("#store option:selected").each(function () {
+    $("#StoreId option:selected").each(function () {
         storeId = $(this).val();
     });
-
     
-    populateRiceList(storeId);
+    var orderId = $("#Id").val();
+    populateRiceList(storeId, orderId);
 });
 
 $(document).ready(function () {
-    if ($("#ViewName").val() === 'ClientOrderEditView') {
+    if ($("#ViewName").val() === 'ClientOrderEditView' || $("#ViewName").val() === 'ClientOrderCreateView')
+    {
         populateStoreList();
     }
 });
@@ -18,6 +19,8 @@ function populateStoreList() {
     
     var orderId = $("#Id").val();
 
+    if (!orderId) orderId = -1;
+
     $.ajax({
         url: '/ClientOrder/GetStoreList',
         dataType: "json",
@@ -25,33 +28,49 @@ function populateStoreList() {
         type: 'GET',
         data: {clientOrderId : orderId}
     }).done(function (listItems) {
-        $("store").empty();
+        $("#StoreId").empty();
+        $("#StoreId").append("<option value=''></option>");
         for (var i = 0; i < listItems.length; i++) {
-            $("#store").append("<option value='" + listItems[i].Value + "'>" + listItems[i].Text + "</option>");
+            var optionStr = "<option value='" + listItems[i].Value + "'";
+            if (listItems[i].Selected) {
+                optionStr += " selected='selected' ";
+
+                if (orderId!==-1) {
+                    populateRiceList(listItems[i].Value, orderId);
+                }
+            }
+            optionStr +=  ">" + listItems[i].Text + "</option>";
+            $("#StoreId").append(optionStr);
         }
     }).fail(function (e) {
-        alert(e);
+        alert("failed to populate store list");
     }).error(function (request, status, error) {
         alert(request.responseText);
     });
 
 }
 
-function populateRiceList(sId) {
-    
+function populateRiceList(sId, oId) {
+    if (!oId) oId = -1;
 
     $.ajax({
         url: '/ClientOrder/GetStoreAvailableRice',
         contentType: "application/json",
         type: 'GET',
-        data: {storeId: sId}
+        data: {storeId: sId, orderId : oId}
     }).done(function (listItems) {
-        $("#rice").empty();
+        $("#RiceId").empty();
         for (var i = 0; i < listItems.length; i++) {
-            $("#rice").append("<option value='" + listItems[i].Value + "'>" + listItems[i].Text + "</option>");
+            var optionStr = "<option value='" + listItems[i].Value + "'";
+            if (listItems[i].Selected) {
+                optionStr += " selected ";
+            }
+            optionStr += ">" + listItems[i].Text + "</option>";
+
+            $("#RiceId").append(optionStr);
         }
     }).fail(function (e) {
-        alert(e);
+        alert("failed to populate rice list");
     }).error(function (request, status, error) {
         alert(request.responseText);
     });

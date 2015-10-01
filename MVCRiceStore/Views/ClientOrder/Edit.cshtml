@@ -18,9 +18,9 @@
             <div class="form-group">
                 <div class="col-md-1"></div>
                 <div class="col-md-1">@Html.Label("Store")</div>
-                <div class="col-md-5">@Html.DropDownListFor(model => model.StoreId, storeList)</div>
-                <div class="col-md-5">
-                    <select id="store" name="store">
+                @*<div class="col-md-5">@Html.DropDownListFor(model => model.StoreId, storeList)</div>*@
+                <div class="col-md-10">
+                    <select id="StoreId" name="StoreId">
                         <option value=""></option>
                     </select>
                 </div>
@@ -29,9 +29,9 @@
             <div class="form-group">
                 <div class="col-md-1"></div>
                 <div class="col-md-1">@Html.Label("Rice")</div>
-                <div class="col-md-5">@Html.DropDownListFor(model => model.RiceId, riceList)</div>
-                <div class="col-md-5">
-                    <select id="rice" name="rice">
+                @*<div class="col-md-5">@Html.DropDownListFor(model => model.RiceId, riceList)</div>*@
+                <div class="col-md-10">
+                    <select id="RiceId" name="RiceId">
                         <option value=""></option>
                     </select>
                 </div>

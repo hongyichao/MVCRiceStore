@@ -164,16 +164,33 @@ namespace MVCRiceStore.Controllers
         [HttpGet]
         public ActionResult GetStoreList(int clientOrderId)
         {
-            var stores = from s in db.stores 
-                         select new SelectListItem() { Text = s.Name, Value = s.Id.ToString()};
+            var clientOrder = db.Orders.Find(clientOrderId);
+
             
+
+            var stores = (from s in db.stores 
+                         select new SelectListItem() { Text = s.Name, Value = s.Id.ToString(), Selected = false}).ToList();
+
+            if (clientOrder != null)
+            {
+                var selectedStoreId = clientOrder.StoreId;
+                for (int i = 0; i < stores.Count; i++)
+                {
+                    if (stores[i].Value == selectedStoreId.ToString())
+                    {
+                        stores[i].Selected = true;
+                    }
+                }
+            }
 
             return Json(stores, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult GetStoreAvailableRice(int storeId)
+        public ActionResult GetStoreAvailableRice(int storeId, int orderId)
         {
+            var order = db.Orders.Find(orderId); 
+
             var store = (db.stores.Include(s => s.rices).Where(s => s.Id == storeId)).SingleOrDefault();
 
             var rices = new List<SelectListItem>();
@@ -182,6 +199,19 @@ namespace MVCRiceStore.Controllers
                 foreach (Rice r in store.rices)
                 {
                     rices.Add(new SelectListItem(){Text = r.Type, Value = r.Id.ToString()});
+                }
+            }
+
+            if (order != null)
+            {
+                var selectedRiceId = order.RiceId;
+
+                for (int i = 0; i < rices.Count; i++)
+                {
+                    if (rices[i].Value == selectedRiceId.ToString())
+                    {
+                        rices[i].Selected = true;
+                    }
                 }
             }
 
