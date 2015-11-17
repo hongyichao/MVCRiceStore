@@ -10,11 +10,13 @@ using MVCRiceStore.Models;
 
 namespace MVCRiceStore.Controllers
 {
+    [Authorize]
     public class RiceController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Rice
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.rices.ToList());

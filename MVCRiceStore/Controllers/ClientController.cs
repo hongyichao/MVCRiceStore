@@ -10,6 +10,7 @@ using MVCRiceStore.Models;
 
 namespace MVCRiceStore.Controllers
 {
+    [Authorize]
     public class ClientController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

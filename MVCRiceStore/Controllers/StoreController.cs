@@ -10,10 +10,12 @@ using MVCRiceStore.Models;
 
 namespace MVCRiceStore.Controllers
 {
+    [Authorize]
     public class StoreController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Store
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.stores.ToList());

@@ -11,6 +11,7 @@ using PagedList;
 
 namespace MVCRiceStore.Controllers
 {
+    [Authorize]
     public class ClientOrderController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
