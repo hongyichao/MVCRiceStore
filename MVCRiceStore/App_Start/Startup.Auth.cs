@@ -58,11 +58,11 @@ namespace MVCRiceStore
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "367832132146-s5oc789018rte3f6gpea3qaf0bk0brs1.apps.googleusercontent.com",
+                ClientSecret = "BCIXvva3zacXC5sJIhuoF-Jx"
+            });
         }
     }
 }
